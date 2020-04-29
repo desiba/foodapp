@@ -21,7 +21,9 @@ import com.haerul.foodsapp.adapter.RecyclerViewHomeAdapter;
 import com.haerul.foodsapp.adapter.ViewPagerHeaderAdapter;
 import com.haerul.foodsapp.model.Categories;
 import com.haerul.foodsapp.model.Meals;
+import com.haerul.foodsapp.view.category.CategoryActivity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,6 +31,10 @@ import butterknife.ButterKnife;
 
 // TODO 31 implement the HomeView interface at the end
 public class HomeActivity extends AppCompatActivity implements HomeView{
+
+    public static final String EXTRA_CATEGORY = "category";
+    public static final String EXTRA_POSITION = "position";
+
 
     /*
      * TODO 32 Add @BindView Annotation (1)
@@ -102,18 +108,19 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
     public void setCategory(List<Categories.Category> category) {
         RecyclerViewHomeAdapter homeAdapter = new RecyclerViewHomeAdapter(category, this);
         recyclerViewCategory.setAdapter(homeAdapter);
-
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
-
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 3,
+                GridLayoutManager.VERTICAL, false);
         recyclerViewCategory.setLayoutManager(layoutManager);
         recyclerViewCategory.setNestedScrollingEnabled(true);
         homeAdapter.notifyDataSetChanged();
 
-        homeAdapter.setOnItemClickListener(new RecyclerViewHomeAdapter.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Toast.makeText(HomeActivity.this, category.get(position).getStrCategory(), Toast.LENGTH_SHORT).show();
-            }
+        homeAdapter.setOnItemClickListener((view, position) -> {
+            Intent intent = new Intent(this, CategoryActivity.class);
+            //TODO 8. add extra data (put to intent)
+
+            intent.putExtra(EXTRA_CATEGORY, (Serializable) category);
+            intent.putExtra(EXTRA_POSITION, position);
+            startActivity(intent);
         });
 
 

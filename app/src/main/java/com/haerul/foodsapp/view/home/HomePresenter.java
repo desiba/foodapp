@@ -58,6 +58,8 @@ class HomePresenter {
 
     void getCategories() {
 
+        view.showLoading();
+
         Call<Categories> categoriesCall = Utils.getApi().getCategories();
 
         categoriesCall.enqueue(new Callback<Categories>() {
