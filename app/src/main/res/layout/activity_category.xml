@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Developed by Haerul Muttaqin
-  Last modified 4/29/20 12:23 PM
+  Last modified 4/29/20 4:59 PM
   Subscribe : https://www.youtube.com/haerulmuttaqin
   Copyright (c) 2020. All rights reserved
   -->
@@ -34,7 +34,6 @@
             app:tabMode="scrollable"
             app:tabContentStart="85dp"/>
     </android.support.design.widget.AppBarLayout>
-
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
