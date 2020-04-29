@@ -28,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 // TODO 31 implement the HomeView interface at the end
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements HomeView{
 
     /*
      * TODO 32 Add @BindView Annotation (1)
@@ -37,6 +37,11 @@ public class HomeActivity extends AppCompatActivity {
      * 2. recyclerCategory
      *
      */
+
+    @BindView(R.id.viewPagerHeader) ViewPager viewPagerMeal;
+    @BindView(R.id.recyclerCategory) RecyclerView recyclerViewCategory;
+
+    HomePresenter presenter;
 
     /*
      *  TODO 33 Create variable for presenter;
@@ -50,12 +55,74 @@ public class HomeActivity extends AppCompatActivity {
          *  TODO 34 bind the ButterKnife (2)
          */
 
+        ButterKnife.bind(this);
+
+        presenter = new HomePresenter(this);
+        presenter.getMeals();
+        presenter.getCategories();
+
         /*
          *  TODO 35 Declare the presenter
          *  new HomePresenter(this)
          */
     }
 
-    // TODO 36 Overriding the interface
+    @Override
+    public void showLoading() {
+        findViewById(R.id.shimmerMeal).setVisibility(View.GONE);
+        findViewById(R.id.shimmerCategory).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideLoading() {
+        findViewById(R.id.shimmerMeal).setVisibility(View.INVISIBLE);
+        findViewById(R.id.shimmerCategory).setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void setMeal(List<Meals.Meal> meal) {
+        //for(Meals.Meal mealResult : meal){
+        //Log.w("meal name : ", mealResult.getStrArea());
+        //}
+
+        ViewPagerHeaderAdapter headerAdapter = new ViewPagerHeaderAdapter(meal, this);
+        viewPagerMeal.setAdapter(headerAdapter);
+        viewPagerMeal.setPadding(20, 0, 150, 0);
+        headerAdapter.notifyDataSetChanged();
+
+        headerAdapter.setOnItemClickListener(new ViewPagerHeaderAdapter.ClickListener() {
+            @Override
+            public void onClick(View v, int position) {
+                Toast.makeText(HomeActivity.this, meal.get(position).getStrMeal(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void setCategory(List<Categories.Category> category) {
+        RecyclerViewHomeAdapter homeAdapter = new RecyclerViewHomeAdapter(category, this);
+        recyclerViewCategory.setAdapter(homeAdapter);
+
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+
+        recyclerViewCategory.setLayoutManager(layoutManager);
+        recyclerViewCategory.setNestedScrollingEnabled(true);
+        homeAdapter.notifyDataSetChanged();
+
+        homeAdapter.setOnItemClickListener(new RecyclerViewHomeAdapter.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(HomeActivity.this, category.get(position).getStrCategory(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onErrorLoading(String message) {
+        Utils.showDialogMessage(this, "Title :", message);
+    }
+
 
 }

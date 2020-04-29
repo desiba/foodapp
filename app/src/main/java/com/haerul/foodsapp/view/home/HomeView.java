@@ -26,4 +26,10 @@ public interface HomeView {
      */
     // TODO 14 showLoading()
 
+    void showLoading();
+    void hideLoading();
+    void setMeal(List<Meals.Meal> meal);
+    void setCategory(List<Categories.Category> category);
+    void onErrorLoading(String message);
+
 }
