@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.haerul.foodsapp.R;
 import com.haerul.foodsapp.Utils;
 import com.haerul.foodsapp.model.Meals;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -55,7 +56,13 @@ public class CategoryFragment extends Fragment implements CategoryView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if(getArguments() != null){
+            textCategory.setText(getArguments().getString("EXTRA_DATA_DESC"));
+            Picasso.get().load(getArguments().getString("EXTRA_DATA_IMAGE")).into(imageCategory);
+            Picasso.get().load(getArguments().getString("EXTRA_DATA_IMAGE")).into(imageCategoryBg);
 
+
+        }
         //TODO 12. getArguments with KEY
         //TODO 13. set Value from argument data to view
     }
