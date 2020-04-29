@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.haerul.foodsapp.R;
@@ -22,6 +23,7 @@ import com.haerul.foodsapp.adapter.ViewPagerHeaderAdapter;
 import com.haerul.foodsapp.model.Categories;
 import com.haerul.foodsapp.model.Meals;
 import com.haerul.foodsapp.view.category.CategoryActivity;
+import com.haerul.foodsapp.view.detail.DetailActivity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -34,6 +36,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
 
     public static final String EXTRA_CATEGORY = "category";
     public static final String EXTRA_POSITION = "position";
+    public static final String EXTRA_DETAIL = "detail";
 
 
     /*
@@ -98,8 +101,12 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
 
         headerAdapter.setOnItemClickListener(new ViewPagerHeaderAdapter.ClickListener() {
             @Override
-            public void onClick(View v, int position) {
-                Toast.makeText(HomeActivity.this, meal.get(position).getStrMeal(), Toast.LENGTH_SHORT).show();
+            public void onClick(View view, int position) {
+                //Toast.makeText(HomeActivity.this, meal.get(position).getStrMeal(), Toast.LENGTH_SHORT).show();
+                TextView mealName = view.findViewById(R.id.mealName);
+                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                intent.putExtra(EXTRA_DETAIL, mealName.getText().toString());
+                startActivity(intent);
             }
         });
     }

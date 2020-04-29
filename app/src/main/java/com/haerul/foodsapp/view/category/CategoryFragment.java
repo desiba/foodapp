@@ -7,6 +7,7 @@
 package com.haerul.foodsapp.view.category;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,6 +27,7 @@ import com.haerul.foodsapp.R;
 import com.haerul.foodsapp.Utils;
 import com.haerul.foodsapp.adapter.RecyclerViewMealByCategory;
 import com.haerul.foodsapp.model.Meals;
+import com.haerul.foodsapp.view.detail.DetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -33,6 +35,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.haerul.foodsapp.view.home.HomeActivity.EXTRA_DETAIL;
 
 public class CategoryFragment extends Fragment implements CategoryView {
 
@@ -96,7 +100,11 @@ public class CategoryFragment extends Fragment implements CategoryView {
         adapter.setOnItemClickListener(new RecyclerViewMealByCategory.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(getActivity(), "meal : "+ meals.get(position).getStrMeal(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "meal : "+ meals.get(position).getStrMeal(), Toast.LENGTH_SHORT).show();
+                TextView mealName = view.findViewById(R.id.mealName);
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra(EXTRA_DETAIL, mealName.getText().toString());
+                startActivity(intent);
             }
         });
     }
