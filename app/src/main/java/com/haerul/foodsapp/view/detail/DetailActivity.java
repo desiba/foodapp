@@ -84,10 +84,8 @@ public class DetailActivity extends AppCompatActivity implements DetailView{
         String mealName = intent.getStringExtra(EXTRA_DETAIL);
 
         DetailPresenter presenter = new DetailPresenter(this);
+        presenter.getMealById(mealName);
 
-        //TODO #9 Get data from the intent
-
-        //TODO #10 Declare the presenter (put the name of the meal name from the data intent to the presenter)
 
     }
 
@@ -151,6 +149,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView{
     @Override
     public void setMeal(Meals.Meal meal) {
         Log.w("Tag", meal.getStrMeal());
+
         Picasso.get().load(meal.getStrMealThumb()).into(mealThumb);
         collapsingToolbarLayout.setTitle(meal.getStrMeal());
         category.setText(meal.getStrCategory());
@@ -158,7 +157,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView{
         instructions.setText(meal.getStrInstructions());
         setupActionBar();
 
-        //===
+
 
         if (!meal.getStrIngredient1().isEmpty()) {
             ingredients.append("\n \u2022 " + meal.getStrIngredient1());

@@ -45,6 +45,5 @@ public class DetailPresenter {
                     }
                 });
 
-        //TODO #7 Set response (meal)
     }
 }

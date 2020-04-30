@@ -75,8 +75,7 @@ public class CategoryFragment extends Fragment implements CategoryView {
             CategoryPresenter presenter = new CategoryPresenter(this);
             presenter.getMealByCategory(getArguments().getString("EXTRA_DATA_NAME"));
         }
-        //TODO 12. getArguments with KEY
-        //TODO 13. set Value from argument data to view
+
     }
 
     @Override

@@ -31,7 +31,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-// TODO 31 implement the HomeView interface at the end
+
 public class HomeActivity extends AppCompatActivity implements HomeView{
 
     public static final String EXTRA_CATEGORY = "category";
@@ -39,30 +39,19 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
     public static final String EXTRA_DETAIL = "detail";
 
 
-    /*
-     * TODO 32 Add @BindView Annotation (1)
-     *
-     * 1. viewPagerHeader
-     * 2. recyclerCategory
-     *
-     */
+
 
     @BindView(R.id.viewPagerHeader) ViewPager viewPagerMeal;
     @BindView(R.id.recyclerCategory) RecyclerView recyclerViewCategory;
 
     HomePresenter presenter;
 
-    /*
-     *  TODO 33 Create variable for presenter;
-     */
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        /*
-         *  TODO 34 bind the ButterKnife (2)
-         */
 
         ButterKnife.bind(this);
 
@@ -70,10 +59,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
         presenter.getMeals();
         presenter.getCategories();
 
-        /*
-         *  TODO 35 Declare the presenter
-         *  new HomePresenter(this)
-         */
     }
 
     @Override
@@ -90,9 +75,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
 
     @Override
     public void setMeal(List<Meals.Meal> meal) {
-        //for(Meals.Meal mealResult : meal){
-        //Log.w("meal name : ", mealResult.getStrArea());
-        //}
+
 
         ViewPagerHeaderAdapter headerAdapter = new ViewPagerHeaderAdapter(meal, this);
         viewPagerMeal.setAdapter(headerAdapter);
@@ -123,8 +106,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
 
         homeAdapter.setOnItemClickListener((view, position) -> {
             Intent intent = new Intent(this, CategoryActivity.class);
-            //TODO 8. add extra data (put to intent)
-
             intent.putExtra(EXTRA_CATEGORY, (Serializable) category);
             intent.putExtra(EXTRA_POSITION, position);
             startActivity(intent);
